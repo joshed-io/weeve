@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>weeve - twitter user streams, interleaved</title>
+  <meta charset="utf-8">
+  <link href="favicon.ico" rel="shortcut icon" type="image/vnd.microsoft.icon" />
+
+  <link href="//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css" rel="stylesheet">
+  <link rel="stylesheet" href="weeve.css" media="screen">
+
+  <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/socket.io/0.9.10/socket.io.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/jquery-timeago/0.11.4/jquery.timeago.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/2.2.2/bootstrap.min.js"></script>
+  <script type='text/javascript' src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.4.3/underscore-min.js"></script>
+  <script type='text/javascript' src="lib/backbone-0.9.9.js"></script>
+
+  <script type='text/javascript' src="https://cdn.firebase.com/v0/firebase.js"></script>
+  <script type='text/javascript' src="https://keen_web_static.s3.amazonaws.com/code/keen-1.1.0.js"></script>
+
+  <script type='text/javascript' src="lib/twitter-text.js"></script>
+  <script type='text/javascript' src="lib/sprintf.js"></script>
+  <script type='text/javascript' src="weeve.js"></script>
+</head>
+<body>
+  <div class="container">
+    <div class="row header-row">
+      <div class="span4">
+        <img class="logo" src="images/weeve.png" alt="weeve">
+      </div>
+      <div class="span4 offset1">
+        <div class="alert alert-info whatsa-weeve">
+          <a href="#" class="close" data-dismiss="alert">&times;</a>
+          A weeve is an interleaved stream of a set of Twitter users.
+          <a href="#learn-modal" data-toggle="modal">Learn more.</a>
+        </div>
+      </div>
+      <div class="span3">
+        <div id="auth-view"></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="user-row">
+    <div class="container">
+      <div class="row">
+        <div class="span12">
+          <div id="users-view"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="main-row">
+    <div class="container">
+      <div class="row">
+        <div class="span7">
+          <div id="tweets-view"></div>
+        </div>
+        <div class="span4 offset1">
+          <div id="analytics-view">
+            <h4 class="weeve-stats">
+              weeve stats
+            </h4>
+            <div id="tweet-series"></div>
+            <div id="top-weevers"></div>
+            <div id="top-tweeters"></div>
+            <div id="total-tweets" class="keen-holder"></div>
+            <div id="total-weevers" class="keen-holder"></div>
+
+            <div class="credits">
+              <div class="help-block">metrics powered by:</div>
+              <a target="_blank" class="keen-power" href="https://keen.io/">
+                <img src="images/keen-io.png" alt="Keen IO logo">
+              </a>
+              <div class="help-block">real-time data stored in:</div>
+              <a target="_blank" class="firebase-logo" href="https://firebase.com/">
+                <img src="/images/firebase.png" alt="Firebase logo">
+              </a>
+              <div class="help-block">user authentication is:</div>
+              <a target="_blank" class="singly-logo" href="https://singly.com/">
+                <img src="/images/singly.png" alt="Singly logo">
+              </a>
+              <hr>
+              <div class="help-block">designed and built by:</div>
+              <a target="_blank" href="https://twitter.com/dzello">
+                @dzello
+              </a>
+              <div class="help-block">maintained at:</div>
+              <a target="_blank" href="https://github.com/dzello/weeve">
+                https://github.com/dzello/weeve
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="learn-modal" class="modal fade hide">
+    <div class="modal-header">
+      <button type="button" class="close" data-dismiss="modal">&times;</button>
+      <h1>About <img src="images/weeve.png" alt="weeve logo"></h1>
+    </div>
+    <div class="modal-body">
+      <div class="alert alert-success">
+        <strong>weeve</strong> is a tiny open source experiment made during
+        re-allocated winter break family time by
+        <a target="_blank" href="https://twitter.com/dzello">@dzello</a>.
+        <br><br>
+        <strong>Developers</strong>, learn more about weeve - a server-less application -
+        on Github at <a target="_blank" href="https://github.com/dzello/weeve">dzello/weeve</a>.
+      </div>
+      <h5>How's it work?</h5>
+      <p>
+        Anyone who finds this page can join the weeve by signing
+        in with their Twitter account. Once a user has signed in,
+        their Twitter <strong>user stream</strong> will be interleaved
+        into the stream of tweets on the page. Everybody gets to watch
+        everyone else's user stream.
+      </p>
+      <h5>What's a user stream?</h5>
+      <p>
+        Your user stream is <strong>not</strong> the tweets you post. Rather,
+        it's your feed. It's the stream of tweets from everyone you follow.
+      </p>
+      <h5>What happens when I leave the page or close my browser?</h5>
+      <p>
+        You leave the weeve, and your stream stops going to the weeve.
+        But you can always come back, as long as the weeve isn't full.
+      </p>
+      <h5>What's a weeve like compared to normal Twitter?</h5>
+      <p>
+        It's like if you only followed the users in the weeve, but they
+        were retweeting <strong>every single tweet</strong> from their stream.
+      </p>
+      <h5>Will I find this useful?</h5>
+      <p>
+        Well, that's up to you! But ideally by participating in a
+        weeve, or just watching one, you'll find new and interesting things
+        on Twitter you didn't know before.
+      </p>
+      <div class="alert alert-warning">
+        <strong>Note:</strong> If you're uncomfortable with other users
+        seeing your Twitter feed, please do not use this site.
+        If you follow users with protected tweets, get their permission
+        before joining a weeve.
+      </div>
+      <h5>What should I do next?</h5>
+      <p>
+        Close this modal window in 5 seconds. Then click 'Sign in with Twitter'
+        (weeve requires only <strong>read</strong> access).
+        When you come back, you'll see your avatar in the row of users
+        and your stream will begin to appear like magic.
+      </p>
+    </div>
+    <div class="modal-footer">
+      <button class="btn" data-dismiss="modal">Close</button>
+    </div>
+  </div>
+
+  <script type="text/x-template" id="t-auth-logged-in">
+    <strong>@<%= screen_name %></strong>
+    &middot;
+    <a href="#" class="logout">logout </a>
+  </script>
+
+  <script type="text/x-template" id="t-auth-logged-out">
+    <button class="btn btn-primary login">
+      <img src="images/twitter-icon-small.png">
+      &nbsp;Sign in with Twitter
+    </button>
+    <h5>Sign in to add your stream</h5>
+  </script>
+
+  <script type="text/x-template" id="t-user">
+    <div class="img-holder toggle">
+      <img class="user-image img-polaroid" src="<%= profile_image_url %>">
+      <i class="icon icon-pic icon-minus-sign icon-off"></i>
+      <i class="icon icon-pic icon-plus-sign icon-on"></i>
+    </div>
+    <a target="_blank" href="https:/twitter.com/<%= screen_name %>">
+      <%= screen_name %>
+    </a>
+    <i class="icon icon-info-sign timeago" data-placement="bottom" rel="tooltip" title="connected <%= $.timeago(weeve.connected_at) %>"></i>
+  </script>
+
+  <script type="text/x-template" id="t-tweet">
+    <div class="tweet-outer-view" data-source-screen-name="<%= tweet.weeve.source.screen_name %>">
+      <img class="source-image" src="<%= tweet.weeve.source.image_url %>" alt="From <%= tweet.weeve.source.screen_name %>'s stream">
+      <div class="tweet-inner-view">
+        <img class="tweeter-image" src="<%= tweet.user.profile_image_url %>">
+        <div class="tweet-header">
+          <span class="name"><%= tweet.user.name %></span>
+          <a target="_blank" href="https://twitter.com/<%= tweet.user.screen_name %>" class="screen-name">@<%= tweet.user.screen_name %></a>
+        </div>
+        <p><%= twttr.txt.autoLink(twttr.txt.htmlEscape(tweet.text), { urlEntities: tweet.entities && tweet.entities.urls, targetBlank: true }) %></p>
+        <a target="_blank" title="<%= tweet.created_at %>" href="https://twitter.com/<%= tweet.user.screen_name %>/status/<%= tweet.id_str %>" class="timeago tweet-footer"></a>
+      </div>
+    </div>
+  </script>
+
+</body>
+</html>
+

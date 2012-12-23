@@ -1,0 +1,191 @@
+/* global styles */
+.loading {
+  padding: 5px 10px;
+  float: left;
+}
+
+/* top of the page */
+.header-row {
+  margin-bottom: 20px;
+}
+.header-row > div {
+  margin-top: 20px;
+}
+.logo {
+  display: block;
+  margin-top: -5px;
+  margin-left: -3px;
+}
+.header-row .alert {
+  margin-bottom: 0;
+}
+#auth-view {
+  float: right;
+  text-align: right;
+}
+#auth-view .btn img {
+  padding: 0 0 2px;
+}
+
+/* the row of weevers */
+#users-view {
+  padding-top: 2px;
+}
+.user-row {
+  margin-bottom: 25px;
+  padding: 10px 0;
+  border-top: 1px solid #ddd;
+  border-bottom: 1px solid #ddd;
+  background: whitesmoke;
+}
+.user-view {
+  float: left;
+  margin: 5px 10px;
+  text-align: center;
+}
+.user-view a {
+  color: #222;
+  font-weight: bold;
+  display: block;
+  margin-bottom: 5px;
+  max-width: 75px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.user-view .img-holder {
+  position: relative;
+}
+.user-view img {
+  width: 64px;
+  height: 64px;
+  display: block;
+  margin-bottom: 10px;
+  cursor: pointer;
+}
+.user-view .img-holder .icon-pic {
+  position: absolute;
+  display: none;
+  top: 2px;
+  right: 2px;
+}
+.user-view .icon {
+  -webkit-opacity: 0.5;
+  -moz-opacity: 0.5;
+  opacity: 0.5;
+}
+.user-view .img-holder:hover .icon-off {
+  display: block;
+}
+.user-view .img-holder.deselected:hover .icon-on {
+  display: block;
+}
+.user-view .img-holder.deselected:hover .icon-off {
+  display: none;
+}
+.user-view .img-holder.deselected img {
+  -moz-opacity: 0.3;
+  -webkit-opacity: 0.3;
+  opacity: 0.3;
+}
+.tooltip {
+  line-height: 13px;
+}
+.keen-holder {
+  margin: 20px 0;
+  margin-left: 10%;
+}
+#analytics-view {
+  text-align: center;
+  border-left: 2px solid #eee;
+}
+.weeve-stats {
+  margin-top: 0;
+  padding: 12px 0;
+  background: whitesmoke;
+  border: 1px solid #eee;
+  border-left: 0;
+}
+
+/* credits styling */
+
+.credits {
+  margin: 50px 0;
+  text-align: left;
+  padding-left: 10%;
+  border-top: 1px solid #eee;
+  padding-top: 20px;
+  color: #eee;
+}
+.credits a {
+  display: inline-block;
+  margin: 0 10px 30px;
+}
+.credits .help-block {
+  margin-bottom: 10px
+  font-size: 12px;
+  font-style: italic;
+}
+
+/* tweet styling */
+#tweets-view {
+}
+
+.tweet-outer-view {
+  position: relative;
+  min-height: 51px;
+  padding: 9px 12px;
+  border-bottom: 1px solid #e8e8e8;
+}
+.tweet-inner-view {
+  margin-left: 58px;
+  margin-right: 24px;
+}
+.tweet-outer-view .source-image {
+  position: absolute;
+  top: 10px;
+  right: 2px;
+  border-radius: 2px;
+  width: 20px;
+  height: 20px;
+  -webkit-opacity: 0.8;
+}
+.tweet-outer-view .tweeter-image {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  border-radius: 5px;
+  width: 48px;
+  height: 48px;
+}
+.tweet-outer-view p {
+  margin: 0;
+}
+.tweet-outer-view .tweet-header .name {
+  font-size: 14px;
+  font-weight: bold;
+}
+.tweet-outer-view .tweet-header a {
+  font-size: 12px;
+  color: #999;
+}
+.tweet-outer-view .tweet-footer {
+  padding-top: 1px;
+  font-size: 12px;
+  color: #999;
+}
+
+.user-row.fixed {
+  position: fixed;
+  width: 100%;
+  top: 0;
+  left: 0;
+  z-index: 1;
+  box-shadow: 0px 1px 8px 0 #ccc;
+}
+
+.modal p {
+  margin-bottom: 20px;
+}
+.modal-header img {
+  height: 120px;
+}
