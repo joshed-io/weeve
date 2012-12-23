@@ -1,4 +1,4 @@
-![weeve logo](https://github.com/dzello/weeve/raw/master/src/www/images/weeve.png "Weeve logo")
+![weeve logo](https://raw.github.com/dzello/weeve/master/www/images/weeve.png "Weeve logo")
 
 A weeve is an interleaved stream of a set of Twitter users. See one in action here:
 
