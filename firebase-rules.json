@@ -1,0 +1,16 @@
+{
+  "rules": {
+    ".read": true,
+    "users": {
+      "$userid": {
+        ".write": "$userid == auth.id"
+      }
+    },
+    "tweets": {
+      "$tweetid": {
+        ".write": "!data.exists()"
+      }
+    },
+    ".write": true
+  }
+}
