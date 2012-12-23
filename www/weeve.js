@@ -14,7 +14,7 @@ $(function() {
     singlyClientId = "", // Client ID of a Singly app
     keenProjectId = "", // Project ID of a Keen project
     keenApiKey = "", // API Key of a Keen project
-    twitterStreamProxy = "http://localhost:8080" // URL of a twitter proxy
+    twitterStreamProxy = "" // URL of a twitter proxy
 
   // Other variables used throughout the script
   var currentUser, currentUserAuth,
