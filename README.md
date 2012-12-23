@@ -41,11 +41,11 @@ At this time, weeve has one dependency that does (gasp) require a server (for no
 
 To run your own weeve, you'll need accounts with all of the services mentioned above, and you'll need to do some configuration.
 
-* Create a Firebase. Firebase is in beta, so you might have to wait for an invite. Once you've got an account, create a firebase and note its URL.
+* Create a Firebase. Firebase is in beta, so you might have to wait for an invite. Once you've got an account, create a Firebase and note its URL.
 * Create a new Twitter app - [https://dev.twitter.com/apps/new](https://dev.twitter.com/apps/new). Set the callback URL to `http://api.singly.com/auth/twitter/auth`.
 * Create a Singly account - [https://singly.com/signup](https://singly.com/signup) and create a Singly app at [https://singly.com/apps](https://singly.com/apps).
 * Go to the Singly app's detail page and click the 'Keys' tab. Find Twitter in the list, and paste in the key and secret from your Twitter app.
-* Find your Firebase secret by visiting its URL (http://yourname.firebaseio.com) and click the 'Auth' icon. Then add your Firebase secret to Singly here - [https://singly.com/docs/firebase](https://singly.com/docs/firebase).
+* Find your Firebase secret by visiting its URL (http://something.firebaseio.com) and click the 'Auth' icon. Then add your Firebase secret to Singly here - [https://singly.com/docs/firebase](https://singly.com/docs/firebase).
 * Add the security rules found in `firebase-rules.json` to your Firebase.
 
 Next, you'll need to deploy the twitter streaming proxy I mentioned above. It's a typical node.js app, so publish it to your favorite host. Then record the URL and port. Make sure to set ALLOWED_ORIGINS to where you'll deploy when you configure the proxy.
@@ -53,7 +53,7 @@ Next, you'll need to deploy the twitter streaming proxy I mentioned above. It's 
 Clone this repository. Set the following keys at the top of `main.js` to your values:
 
 * weeveUrl (where you are deploying, used for OAuth redirect)
-* firebase
+* firebaseUrl
 * singlyClientId
 * keenProjectId
 * keenApiKey
