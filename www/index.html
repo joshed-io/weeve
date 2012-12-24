@@ -191,24 +191,26 @@
   </script>
 
   <script type="text/x-template" id="t-tweet">
-    <% var retweet = tweet.retweeted_status %>
-    <% var displayUser = retweet ? retweet.user : tweet.user %>
-    <% if (retweet) { %>
-      <div class="retweet">
-        <i class="icon-retweet"></i>
-        &nbsp;retweeted by <a target="_blank" href="https://twitter.com/<%= tweet.user.screen_name %>"><%= tweet.user.screen_name %></a>
-      </div>
-    <% } %>
-    <div class="tweet-outer-view" data-source-screen-name="<%= tweet.weeve.source.screen_name %>">
-      <img class="source-image" src="<%= tweet.weeve.source.image_url %>" alt="From <%= tweet.weeve.source.screen_name %>'s stream">
-      <div class="tweet-inner-view">
-        <img class="tweeter-image" src="<%= displayUser.profile_image_url %>">
-        <div class="tweet-header">
-          <span class="name"><%= displayUser.name %></span>
-          <a target="_blank" href="https://twitter.com/<%= displayUser.screen_name %>" class="screen-name">@<%= displayUser.screen_name %></a>
+    <div class="tweet-hider" data-source-screen-name="<%= tweet.weeve.source.screen_name %>">
+      <% var retweet = tweet.retweeted_status %>
+      <% var displayUser = retweet ? retweet.user : tweet.user %>
+      <% if (retweet) { %>
+        <div class="retweet">
+          <i class="icon-retweet"></i>
+          &nbsp;retweeted by <a target="_blank" href="https://twitter.com/<%= tweet.user.screen_name %>"><%= tweet.user.screen_name %></a>
         </div>
-        <p><%= twttr.txt.autoLink(twttr.txt.htmlEscape((retweet || tweet).text), { urlEntities: tweet.entities && tweet.entities.urls, targetBlank: true }) %></p>
-        <a target="_blank" title="<%= tweet.created_at %>" href="https://twitter.com/<%= displayUser.screen_name %>/status/<%= tweet.id_str %>" class="timeago tweet-footer"></a>
+      <% } %>
+      <div class="tweet-outer-view">
+        <img class="source-image" src="<%= tweet.weeve.source.image_url %>" alt="From <%= tweet.weeve.source.screen_name %>'s stream">
+        <div class="tweet-inner-view">
+          <img class="tweeter-image" src="<%= displayUser.profile_image_url %>">
+          <div class="tweet-header">
+            <span class="name"><%= displayUser.name %></span>
+            <a target="_blank" href="https://twitter.com/<%= displayUser.screen_name %>" class="screen-name">@<%= displayUser.screen_name %></a>
+          </div>
+          <p><%= twttr.txt.autoLink(twttr.txt.htmlEscape((retweet || tweet).text), { urlEntities: tweet.entities && tweet.entities.urls, targetBlank: true }) %></p>
+          <a target="_blank" title="<%= tweet.created_at %>" href="https://twitter.com/<%= displayUser.screen_name %>/status/<%= tweet.id_str %>" class="timeago tweet-footer"></a>
+        </div>
       </div>
     </div>
   </script>
