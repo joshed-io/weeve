@@ -174,14 +174,18 @@
   </script>
 
   <script type="text/x-template" id="t-user">
+    <a target="_blank" href="https:/twitter.com/<%= screen_name %>">
+      @<%= screen_name %>
+    </a>
     <div class="img-holder toggle">
       <img class="user-image img-polaroid" src="<%= profile_image_url %>">
       <i class="icon icon-pic icon-minus-sign icon-off"></i>
       <i class="icon icon-pic icon-plus-sign icon-on"></i>
     </div>
-    <a target="_blank" href="https:/twitter.com/<%= screen_name %>">
-      <%= screen_name %>
-    </a>
+    <iframe allowtransparency="true" frameborder="0" scrolling="no"
+      src="//platform.twitter.com/widgets/follow_button.html?screen_name=<%= screen_name %>&show_count=false&show_screen_name=false"
+      style="width:60px; height:20px; margin-left: 3px;"></iframe>
+    <br>
     <i class="icon icon-info-sign" data-placement="bottom"></i>
     <abbr class="timeago hide" title="<%= weeve.connected_at %>"></abbr>
   </script>

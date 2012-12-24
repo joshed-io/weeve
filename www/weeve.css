@@ -33,7 +33,7 @@
 }
 .user-row {
   margin-bottom: 25px;
-  padding: 10px 0;
+  padding: 5px 0;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   background: whitesmoke;
@@ -44,22 +44,21 @@
   text-align: center;
 }
 .user-view a {
-  color: #222;
+  color: #333;
   font-weight: bold;
   display: block;
-  margin-bottom: 5px;
   max-width: 75px;
   overflow: hidden;
   text-overflow: ellipsis;
 }
 .user-view .img-holder {
   position: relative;
+  margin: 6px 0;
 }
 .user-view img {
   width: 64px;
   height: 64px;
   display: block;
-  margin-bottom: 10px;
   cursor: pointer;
 }
 .user-view .img-holder .icon-pic {
