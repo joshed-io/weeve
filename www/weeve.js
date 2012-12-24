@@ -500,14 +500,19 @@ $(function() {
   // affix the row of weevers when the user scroll's down
   // for the ultimate 'dashboard' type view
   $(window).scroll(function() {
-    var yPosition = $(window).scrollTop()
-    // the extra twenty makes it easier to dock when scrolling up
-    if (yPosition > $(".header-row").outerHeight() - 20) {
-      $(".main-row").css("margin-top", $(".user-row").outerHeight())
-      $(".user-row").addClass("fixed")
-    } else {
-      $(".main-row").css("margin-top", 0)
-      $(".user-row").removeClass("fixed")
+    if (window.matchMedia) {
+      var mql = window.matchMedia("(min-width: 767px)");
+      if (mql.matches) {
+        var yPosition = $(window).scrollTop()
+        // the extra twenty makes it easier to dock when scrolling up
+        if (yPosition > $(".header-row").outerHeight() - 20) {
+          $(".main-row").css("margin-top", $(".user-row").outerHeight())
+          $(".user-row").addClass("fixed")
+        } else {
+          $(".main-row").css("margin-top", 0)
+          $(".user-row").removeClass("fixed")
+        }
+      }
     }
   })
 
