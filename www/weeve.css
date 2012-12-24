@@ -207,3 +207,10 @@
 .modal-header img {
   height: 120px;
 }
+
+/* offline styling */
+body.offline .user-view {
+  -moz-opacity: 0.2;
+  -webkit-opacity: 0.2;
+  opacity: 0.2;
+}

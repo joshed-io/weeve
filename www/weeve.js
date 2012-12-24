@@ -73,36 +73,17 @@ $(function() {
     })
   }
 
-  // Creates a firebase user and binds a socket to a proxy for their stream
-  function createUserAndListenForTweets() {
+  function listenForTweets() {
 
-    // Get a reference to the current user via their screen name
-    var userRef = firebase.child("users").child(currentUser.screen_name)
-    // User account is deleted if the connection breaks
-    userRef.removeOnDisconnect()
-    // Add metadata so every client knows when this user joined
-    currentUser.weeve = { connected_at: new Date().toISOString() }
-    // Oldest users are ordered first
-    userRef.setWithPriority(currentUser, new Date().getTime())
-
-    // add a keen progress event
-    keen("progress", { step: "user_added_to_firebase" })
-
-    // add another for computing total # of unique users
-    // using a different collection so screen name
-    // remains unlinked to anonymous correlation id
-    // used in progress collection
-    keen("users", { step: "signed_in", screen_name: currentUser.screen_name })
-
-    // Bind to the twitter userstream and push tweets to firebase
-    var socket = io.connect(twitterStreamProxy)
-    socket.on("connect", function() {
-
-      // Send the data the proxy needs to initiate the conversation
+    function startStream() {
+      // Send the data so the proxy can initiate the conversation
       socket.emit("userstream", {
         token: currentUserAuth.token.oauth_token,
         secret: currentUserAuth.token.oauth_token_secret })
+    }
 
+    var socket = io.connect(twitterStreamProxy)
+    socket.once("connect", function() {
       socket.on('tweet', function(tweet) {
         if (tweet.id) { //Sometimes non-tweet messages are sent
 
@@ -130,13 +111,54 @@ $(function() {
           })
         }
       })
+
+      // tell the proxy we're ready to accept tweets!
+      startStream()
     })
 
-    // If the user logs out, remove the user and stop listening for tweets
-    Weeve.on("auth:logout", function() {
-      userRef.remove()
+    // on any reconnect we need to tell the proxy to start again
+    socket.on("reconnect", startStream)
+
+    // If the user logs out, kill the socket connection
+    Weeve.once("auth:logout", function() {
       socket.disconnect()
     })
+  }
+
+  // Creates a firebase user and binds a socket to a proxy for their stream
+  function connectUser() {
+
+    function _connectUser() {
+
+      // Get a reference to the current user via their screen name
+      var userRef = firebase.child("users").child(currentUser.screen_name)
+      // User account is deleted if the connection breaks
+      userRef.removeOnDisconnect()
+      // Add metadata so every client knows when this user joined
+      currentUser.weeve = { connected_at: new Date().toISOString() }
+      // Oldest users are ordered first
+      userRef.setWithPriority(currentUser, new Date().getTime())
+
+      // add a keen progress event
+      keen("progress", { step: "user_added_to_firebase" })
+
+      // add another for computing total # of unique users
+      // using a different collection so screen name
+      // remains unlinked to anonymous correlation id
+      // used in progress collection
+      keen("users", { step: "signed_in", screen_name: currentUser.screen_name })
+
+      // If the user logs out, remove the user
+      Weeve.once("auth:logout", function() {
+        userRef.remove()
+      })
+    }
+
+    // Anytime a connection is restored, re-create the user
+    Weeve.on("online", _connectUser)
+
+    // Connect now
+    _connectUser()
   }
 
   // Draw keen charts related to users & steps
@@ -419,10 +441,16 @@ $(function() {
               var usersRef = firebase.child("users")
               usersRef.once('value', function(users) {
                 if (users.numChildren() < 20) {
-                  createUserAndListenForTweets()
+
+                  // Create the Firebase user
+                  connectUser()
+
+                  // Start listening for tweets
+                  listenForTweets()
+
                 } else {
                   keen("progress", { step: "full" })
-                  alert("Weeve is full right now. Please refresh your page if you see a spot open up.")
+                  alert("Weeve is full right now. Refresh your page if you see a spot open up.")
                 }
               })
 
