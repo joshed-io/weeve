@@ -177,7 +177,12 @@ $(function() {
     $("#tweet-series").empty()
     new Keen.Series("tweets", {
       analysisType: "count",
-      timeframe: "last_3_hours",
+      timeframe: {
+        start: new Date(
+          // exactly three hours ago
+          new Date().getTime() - 180*60e3).toISOString(),
+        end: new Date().toISOString()
+      },
       interval: "hourly"
     }).draw($("#tweet-series")[0], {
       width: chartWidth,
