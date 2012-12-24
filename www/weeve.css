@@ -32,7 +32,7 @@
 }
 .user-row {
   margin-bottom: 25px;
-  padding: 5px 0;
+  padding: 5px 5px;
   border-top: 1px solid #ddd;
   border-bottom: 1px solid #ddd;
   background: whitesmoke;
@@ -71,14 +71,17 @@
   -moz-opacity: 0.5;
   opacity: 0.5;
 }
-.user-view .img-holder:hover .icon-off {
-  display: block;
-}
-.user-view .img-holder.deselected:hover .icon-on {
-  display: block;
-}
-.user-view .img-holder.deselected:hover .icon-off {
-  display: none;
+/* hovers prevent clicks on iOS */
+@media (min-width: 767px) {
+  .user-view .img-holder:hover .icon-off {
+    display: block;
+  }
+  .user-view .img-holder.deselected:hover .icon-on {
+    display: block;
+  }
+  .user-view .img-holder.deselected:hover .icon-off {
+    display: none;
+  }
 }
 .user-view .img-holder.deselected img {
   -moz-opacity: 0.3;
