@@ -126,9 +126,6 @@
 }
 
 /* tweet styling */
-#tweets-view {
-}
-
 .tweet-outer-view {
   position: relative;
   min-height: 51px;
@@ -171,6 +168,22 @@
   padding-top: 1px;
   font-size: 12px;
   color: #999;
+}
+.retweet {
+  margin: 15px 0 -5px 70px;
+  padding: 2px 10px;
+  display: inline-block;
+  border-radius: 5px;
+  background: whitesmoke;
+}
+.retweet, .retweet a {
+  color: #888;
+  font-size: 12px;
+}
+.retweet i {
+  -moz-opacity: 0.5;
+  -webkit-opacity: 0.5;
+  opacity: 0.5;
 }
 
 .user-row.fixed {
