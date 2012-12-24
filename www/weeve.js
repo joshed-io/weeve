@@ -145,13 +145,22 @@ $(function() {
 
   // Draw keen charts related to tweets
   function drawTweetMetrics() {
-    var chartWidth = 250, chartHeight = 250
+    var chartWidth = 250, chartHeight = 250,
+        hours = 36e5
+
+    function timeframeSince(howLongAgo) {
+      return {
+        start: new Date(
+          new Date().getTime() - howLongAgo).toISOString(),
+        end: new Date().toISOString()
+      }
+    }
 
     // Who's 'contributed' the most tweets?
     $("#top-weevers").empty()
     new Keen.Metric("tweets", {
       analysisType: "count",
-      timeframe: "this_day",
+      timeframe: timeframeSince(24 * hours),
       groupBy: "source_screen_name"
     }).draw($("#top-weevers")[0], {
       width: chartWidth,
@@ -164,7 +173,7 @@ $(function() {
     $("#top-tweeters").empty()
     new Keen.Metric("tweets", {
       analysisType: "count",
-      timeframe: "this_day",
+      timeframe: timeframeSince(24 * hours),
       groupBy: "tweet_screen_name"
     }).draw($("#top-tweeters")[0], {
       width: chartWidth,
@@ -177,12 +186,7 @@ $(function() {
     $("#tweet-series").empty()
     new Keen.Series("tweets", {
       analysisType: "count",
-      timeframe: {
-        start: new Date(
-          // exactly three hours ago
-          new Date().getTime() - 180*60e3).toISOString(),
-        end: new Date().toISOString()
-      },
+      timeframe: "last_3_hours",
       interval: "hourly"
     }).draw($("#tweet-series")[0], {
       width: chartWidth,
