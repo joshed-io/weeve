@@ -152,6 +152,19 @@ $(function() {
       Weeve.once("auth:logout", function() {
         userRef.remove()
       })
+
+      // sometimes w/ reconnection a removeOnDisconnect event can
+      // happen for our user even after they've been reinstated
+      // here we listen for it, and if it happens we put the user back
+      // this can also happen if the user has another browser window open
+      // and disconnects from there, removing the user
+      userRef.on("value", function(dataSnapshot) {
+        if (dataSnapshot.val() == null) {
+          setTimeout(function() {
+            _connectUser()
+          }, 1000)
+        }
+      })
     }
 
     // Anytime a connection is restored, re-create the user
