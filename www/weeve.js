@@ -1,7 +1,5 @@
 $(function() {
 
-  // Reader note: Skip to the end of the file to see
-  // how execution starts; setup, objecs, and helpers happen first
   var Weeve = {}
 
   // Use the app's namespace as an event aggregator
@@ -25,11 +23,22 @@ $(function() {
 
   // *** Pre-routing setup
 
+  // proxy online and offline events so event
+  // binding is consistent
+  $(window).on("online", function() {
+    $("body").removeClass("offline")
+    Weeve.trigger("online")
+  })
+  $(window).on("offline", function() {
+    $("body").addClass("offline")
+    Weeve.trigger("offline")
+  })
+
   Keen.configure(keenProjectId, keenApiKey)
   Keen.setGlobalProperties(function(collection) {
     // assign a non-identifying user id for progress (funnel) event correlation
     if (collection === "progress") {
-      var anonUserId = localStorage.anonUserId;
+      var anonUserId = localStorage.anonUserId
       if (!anonUserId) {
         anonUserId = localStorage.anonUserId =
           Math.random().toString(36).substring(8)
@@ -111,7 +120,7 @@ $(function() {
 
           // We use the tweet's ascending, numeric id as our priority
           // to keep things in order
-            setWithPriority(tweet, tweet.id)
+          setWithPriority(tweet, tweet.id)
 
           // Log the tweeter and the streamer to keen
           keen("tweets", {
@@ -324,7 +333,7 @@ $(function() {
         hide.remove()
       } else {
         $(sprintf("<style type='text/css' id='hide-style-%s'>", screenName)).
-          html(sprintf("*[data-source-screen-name='%s'] { display: none; }", screenName)).
+          html(sprintf("*[data-source-screen-name='%s'] { display: none }", screenName)).
           appendTo($("head"))
       }
       $(event.currentTarget).toggleClass("deselected")
@@ -450,7 +459,7 @@ $(function() {
   // affix the row of weevers when the user scroll's down
   // for the ultimate 'dashboard' type view
   $(window).scroll(function() {
-    var yPosition = $(window).scrollTop();
+    var yPosition = $(window).scrollTop()
     // the extra twenty makes it easier to dock when scrolling up
     if (yPosition > $(".header-row").outerHeight() - 20) {
       $(".main-row").css("margin-top", $(".user-row").outerHeight())
