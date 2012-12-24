@@ -65,7 +65,7 @@ $(function() {
     })
 
     var tweetsRef = firebase.child("tweets")
-    tweetsRef.limit(100).on("child_added", function(tweet) {
+    tweetsRef.limit(50).on("child_added", function(tweet) {
       tweets.add(tweet.val())
     })
     tweetsRef.on("child_removed", function(tweet) {
