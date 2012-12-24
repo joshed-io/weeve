@@ -182,7 +182,8 @@
     <a target="_blank" href="https:/twitter.com/<%= screen_name %>">
       <%= screen_name %>
     </a>
-    <i class="icon icon-info-sign timeago" data-placement="bottom" rel="tooltip" title="connected <%= $.timeago(weeve.connected_at) %>"></i>
+    <i class="icon icon-info-sign" data-placement="bottom"></i>
+    <abbr class="timeago hide" title="<%= weeve.connected_at %>"></abbr>
   </script>
 
   <script type="text/x-template" id="t-tweet">

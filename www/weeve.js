@@ -302,7 +302,9 @@ $(function() {
     render: function() {
       this.$el.html(this.template(this.model.toJSON()))
       this.$(".timeago").timeago()
-      this.$(".icon-info-sign").tooltip()
+      this.$(".icon-info-sign").tooltip({title: _.bind(function() {
+        return sprintf("connected %s", this.$(".timeago").html())
+      }, this)})
       return this
     },
     toggleScreenName: function(event) {
