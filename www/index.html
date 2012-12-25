@@ -216,7 +216,7 @@
             <span class="name"><%= displayUser.name %></span>
             <a target="_blank" href="https://twitter.com/<%= displayUser.screen_name %>" class="screen-name">@<%= displayUser.screen_name %></a>
           </div>
-          <p><%= twttr.txt.autoLink(twttr.txt.htmlEscape((retweet || tweet).text), { urlEntities: tweet.entities && tweet.entities.urls, targetBlank: true }) %></p>
+          <p><%= twttr.txt.autoLink((retweet || tweet).text, { urlEntities: tweet.entities && tweet.entities.urls, targetBlank: true }) %></p>
           <a target="_blank" title="<%= tweet.created_at %>" href="https://twitter.com/<%= displayUser.screen_name %>/status/<%= tweet.id_str %>" class="timeago tweet-footer"></a>
         </div>
       </div>
