@@ -1,19 +1,21 @@
 ![weeve logo](https://raw.github.com/dzello/weeve/master/www/images/weeve.png "Weeve logo")
 
-A weeve is an interleaved stream of a set of Twitter users. See one in action here:
+A weeve is Twitter timeline sharing in a group. See one in action here:
 
 [http://weeve.dzello.com/](http://weeve.dzello.com/)
+
+Read more about weeve on my blog - ["weeve - HTML5 Twitter uber-streaming powered by Firebase, Keen IO, and Singly"](http://blog.joshdzielak.com/blog/2012/12/24/weeve-html5-twitter-uber-streaming-powered-by-firebase-keenio-and-singly/).
 
 ### Background
 
 weeve is a tiny open source experiment made during re-allocated winter break
 family time by [@dzello](https://twitter.com/dzello).
 
-This repository contains an app that allows users to participate in a weeve. It includes:
+weeve includes:
 
 * OAuth authentication - "Sign in with Twitter"
-* Real-time -  Tweets appear instantly across all clients
-* Persistence - A history of up to 100 tweets is shown to new users
+* Real-time sync - Tweets appear instantly across all clients
+* Persistence - A history of up to 50 tweets is shown to new users
 * Detailed analytics - Charts and graphs that show who's weeving and who's tweeting
 
 Best of all, this app **requires no server**. It's just HTML, JavaScript, and CSS, all done right in the browser.
@@ -27,8 +29,7 @@ weeve is powered by:
 
 * [Firebase](http://firebase.com) provides data storage that's directly accessible to the client. Best of all, clients are notified about changes to data in real-time.
 * [Keen IO](http://keen.io)'s analytics APIs collect event data and make charting it a snap.
-* [Singly](http://singly.com) provides a uniform interface to social (and other) API's. For weeve, Singly handles
-  the authentication with Twitter.
+* [Singly](http://singly.com) provides a uniform interface to social (and other) API's. For weeve, Singly handles the authentication with Twitter.
 
 At this time, weeve has one dependency that does (gasp) require a server (for now):
 
