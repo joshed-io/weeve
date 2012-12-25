@@ -1,5 +1,11 @@
 $(function() {
 
+  // alert on flaky network connections
+  if (!(window.Keen && window.Firebase)) {
+    alert("One of more files needed by weeve could not \
+           be downloaded. Please reload the page and try again.")
+  }
+
   var Weeve = {}
 
   // Use the app's namespace as an event aggregator
@@ -23,8 +29,8 @@ $(function() {
 
   // *** Pre-routing setup
 
-  // proxy online and offline events so event
-  // binding is consistent
+  // proxy online and offline events to keep
+  // event handling consistent
   $(window).on("online", function() {
     $("body").removeClass("offline")
     Weeve.trigger("online")
@@ -33,24 +39,6 @@ $(function() {
     $("body").addClass("offline")
     Weeve.trigger("offline")
   })
-
-  Keen.configure(keenProjectId, keenApiKey)
-  Keen.setGlobalProperties(function(collection) {
-    // assign a non-identifying user id for progress (funnel) event correlation
-    if (collection === "progress") {
-      var anonUserId = localStorage.anonUserId
-      if (!anonUserId) {
-        anonUserId = localStorage.anonUserId =
-          Math.random().toString(36).substring(8)
-      }
-      return {
-        anonUserId: anonUserId
-      }
-    } else {
-      return {}
-    }
-  })
-
 
   // *** All helper functions in alphabetical order
 
@@ -70,6 +58,25 @@ $(function() {
     })
     tweetsRef.on("child_removed", function(tweet) {
       tweets.remove(tweets.get(tweet.val().id))
+    })
+  }
+
+  function configureKeen() {
+    Keen.configure(keenProjectId, keenApiKey)
+    Keen.setGlobalProperties(function(collection) {
+      // assign a non-identifying user id for progress (funnel) event correlation
+      if (collection === "progress") {
+        var anonUserId = localStorage.anonUserId
+        if (!anonUserId) {
+          anonUserId = localStorage.anonUserId =
+            Math.random().toString(36).substring(8)
+        }
+        return {
+          anonUserId: anonUserId
+        }
+      } else {
+        return {}
+      }
     })
   }
 
@@ -251,10 +258,12 @@ $(function() {
 
   // Send data to keen, logging any errors
   function keen(collection, data) {
-    Keen.addEvent(collection, data, function() {
-    }, function() {
-      console.log("couldn't publish to keen")
-    })
+    if (window.Keen) {
+      Keen.addEvent(collection, data, function() {
+      }, function() {
+        console.log("couldn't publish to keen")
+      })
+    }
   }
 
   // placeholder html
@@ -410,7 +419,6 @@ $(function() {
     },
 
     index: function() {
-      keen("progress", { step: "visit" })
 
       // Create an auth view, which will listen for auth events
       new AuthView().render().$el.appendTo($("#auth-view"))
@@ -424,13 +432,20 @@ $(function() {
       // Bind the collections of these views to firebase so they get updates
       bindFirebaseListeners()
 
-      // Draw keen charts
-      Keen.onChartsReady(drawUserMetrics)
-      Keen.onChartsReady(drawTweetMetrics)
+      // address flaky net connections
+      if (window.Keen) {
+        configureKeen()
 
-      // Update keen charts every minute
-      setInterval(drawUserMetrics, 6e4)
-      setInterval(drawTweetMetrics, 6e4)
+        // Draw keen charts
+        Keen.onChartsReady(drawUserMetrics)
+        Keen.onChartsReady(drawTweetMetrics)
+
+        // Update keen charts every minute
+        setInterval(drawUserMetrics, 6e4)
+        setInterval(drawTweetMetrics, 6e4)
+      }
+
+      keen("progress", { step: "visit" })
 
       // If a user has logged in, use the auth token to authenticate with firebase
       if (localStorage.firebaseAuthToken) {
