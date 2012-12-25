@@ -94,28 +94,31 @@ $(function() {
       socket.on('tweet', function(tweet) {
         if (tweet.id) { //Sometimes non-tweet messages are sent
 
-          // Add extra data about whose stream this came from
-          tweet.weeve = {
-            source: {
-              screen_name: currentUser.screen_name,
-              image_url: currentUser.profile_image_url } }
+          if (!tweet.user.protected) { // No tweets from protected accounts
 
-          // Save the tweet to firebase with the tweet id_str as its key
-          // This way, if 2 streams receive the same tweet, we don't duplicate it
-          // The first user to write it to Firebase wins, because
-          // we've set the Firebase rules to reject updates to tweets
-          firebase.child("tweets").child(tweet.id_str).
+            // Add extra data about whose stream this came from
+            tweet.weeve = {
+              source: {
+                screen_name: currentUser.screen_name,
+                image_url: currentUser.profile_image_url } }
 
-          // We use the tweet's ascending, numeric id as our priority
-          // to keep things in order
-          setWithPriority(tweet, tweet.id)
+            // Save the tweet to firebase with the tweet id_str as its key
+            // This way, if 2 streams receive the same tweet, we don't duplicate it
+            // The first user to write it to Firebase wins, because
+            // we've set the Firebase rules to reject updates to tweets
+            firebase.child("tweets").child(tweet.id_str).
 
-          // Log the tweeter and the streamer to keen
-          keen("tweets", {
-            source_screen_name: currentUser.screen_name,
-            tweet_screen_name: tweet.user.screen_name,
-            tweet_id: tweet.id
-          })
+            // We use the tweet's ascending, numeric id as our priority
+            // to keep things in order
+            setWithPriority(tweet, tweet.id)
+
+            // Log the tweeter and the streamer to keen
+            keen("tweets", {
+              source_screen_name: currentUser.screen_name,
+              tweet_screen_name: tweet.user.screen_name,
+              tweet_id: tweet.id
+            })
+          }
         }
       })
 
