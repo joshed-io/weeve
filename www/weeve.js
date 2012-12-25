@@ -183,7 +183,7 @@ $(function() {
       targetProperty: "screen_name"
     }).draw($("#total-weevers")[0], {
       label: "All-time weevers",
-      width: "80%"
+      width: "100%"
     })
   }
 
@@ -245,7 +245,7 @@ $(function() {
       analysisType: "count",
     }).draw($("#total-tweets")[0], {
       label: "All-time tweets",
-      width: "80%"
+      width: "100%"
     })
   }
 
