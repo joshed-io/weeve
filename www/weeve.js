@@ -199,7 +199,7 @@ $(function() {
 
   // Draw keen charts related to tweets
   function drawTweetMetrics() {
-    var chartWidth = 250, chartHeight = 250,
+    var chartWidth = 300, chartHeight = 250,
         hours = 36e5
 
     function timeframeSince(howLongAgo) {
@@ -240,7 +240,7 @@ $(function() {
     $("#tweet-series").empty()
     new Keen.Series("tweets", {
       analysisType: "count",
-      timeframe: "last_3_hours",
+      timeframe: "last_6_hours",
       interval: "hourly"
     }).draw($("#tweet-series")[0], {
       width: chartWidth,
