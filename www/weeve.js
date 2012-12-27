@@ -20,6 +20,15 @@ $(function() {
     keenApiKey = "", // API Key of a Keen project
     twitterStreamProxy = "" // URL of a twitter proxy
 
+// Configuration variables - set according to your environment
+var weeveUrl = "http://localhost/weeve",
+  firebaseUrl = "https://dz.firebaseio.com/",
+  singlyApiHost = "https://api.singly.com",
+  singlyClientId = "7574fcd3a607a909957adb80918869e1",
+  keenProjectId = "50d80340897a2c652a000000",
+  keenApiKey = "ea4db2790dc440a6b023fd07243754cf",
+  twitterStreamProxy = "http://localhost:8080"
+
   // Other variables used throughout the script
   var currentUser, currentUserAuth,
       firebase = new Firebase(firebaseUrl)
@@ -39,6 +48,10 @@ $(function() {
     $("body").addClass("offline")
     Weeve.trigger("offline")
   })
+
+  // configure keen client
+  configureKeen()
+
 
   // *** All helper functions in alphabetical order
 
@@ -62,22 +75,24 @@ $(function() {
   }
 
   function configureKeen() {
-    Keen.configure(keenProjectId, keenApiKey)
-    Keen.setGlobalProperties(function(collection) {
-      // assign a non-identifying user id for progress (funnel) event correlation
-      if (collection === "progress") {
-        var anonUserId = localStorage.anonUserId
-        if (!anonUserId) {
-          anonUserId = localStorage.anonUserId =
-            Math.random().toString(36).substring(8)
+    if (window.Keen) {
+      Keen.configure(keenProjectId, keenApiKey)
+      Keen.setGlobalProperties(function(collection) {
+        // assign a non-identifying user id for progress (funnel) event correlation
+        if (collection === "progress") {
+          var anonUserId = localStorage.anonUserId
+          if (!anonUserId) {
+            anonUserId = localStorage.anonUserId =
+              Math.random().toString(36).substring(8)
+          }
+          return {
+            anonUserId: anonUserId
+          }
+        } else {
+          return {}
         }
-        return {
-          anonUserId: anonUserId
-        }
-      } else {
-        return {}
-      }
-    })
+      })
+    }
   }
 
   function listenForTweets() {
@@ -437,7 +452,6 @@ $(function() {
 
       // address flaky net connections
       if (window.Keen) {
-        configureKeen()
 
         // Draw keen charts
         Keen.onChartsReady(drawUserMetrics)
