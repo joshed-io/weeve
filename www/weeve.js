@@ -20,15 +20,6 @@ $(function() {
     keenApiKey = "", // API Key of a Keen project
     twitterStreamProxy = "" // URL of a twitter proxy
 
-// Configuration variables - set according to your environment
-var weeveUrl = "http://localhost/weeve",
-  firebaseUrl = "https://dz.firebaseio.com/",
-  singlyApiHost = "https://api.singly.com",
-  singlyClientId = "7574fcd3a607a909957adb80918869e1",
-  keenProjectId = "50d80340897a2c652a000000",
-  keenApiKey = "ea4db2790dc440a6b023fd07243754cf",
-  twitterStreamProxy = "http://localhost:8080"
-
   // Other variables used throughout the script
   var currentUser, currentUserAuth,
       firebase = new Firebase(firebaseUrl)
