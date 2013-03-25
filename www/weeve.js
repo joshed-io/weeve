@@ -457,9 +457,9 @@ $(function() {
 
       // If a user has logged in, use the auth token to authenticate with firebase
       if (localStorage.firebaseAuthToken) {
-        firebase.auth(localStorage.firebaseAuthToken, function(success) {
+        firebase.auth(localStorage.firebaseAuthToken, function(error) {
           keen("progress", { step: "firebase_auth" })
-          if (success) {
+          if (!error) {
             // Retrieve twitter & auth data via singly
             $.getJSON(sprintf("%s/profiles/twitter", singlyApiHost),
               { auth: true,
