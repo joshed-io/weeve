@@ -17,7 +17,8 @@ $(function() {
     singlyApiHost = "https://api.singly.com", // Default, change if hosting your own
     singlyClientId = "", // Client ID of a Singly app
     keenProjectId = "", // Project ID of a Keen project
-    keenApiKey = "", // API Key of a Keen project
+    keenReadKey = "", // API Key of a Keen project
+    keenWriteKey = "", // API Key of a Keen project
     twitterStreamProxy = "" // URL of a twitter proxy
 
   // Other variables used throughout the script
@@ -67,7 +68,7 @@ $(function() {
 
   function configureKeen() {
     if (window.Keen) {
-      Keen.configure(keenProjectId, keenApiKey)
+      Keen.configure({ projectId: keenProjectId, readKey: keenReadKey, writeKey: keenWriteKey })
       Keen.setGlobalProperties(function(collection) {
         // assign a non-identifying user id for progress (funnel) event correlation
         if (collection === "progress") {
