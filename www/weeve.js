@@ -12,14 +12,14 @@ $(function() {
   _.extend(Weeve, Backbone.Events)
 
   // Configuration variables - set according to your environment
-  var weeveUrl = "http://weeve.dev/",
+  var weeveUrl = "http://weeve.dzello.com/",
     firebaseUrl = "https://hq.firebaseio.com/",
     singlyApiHost = "https://api.singly.com",
     singlyClientId = "794877eff309bcf8161e6c4e0f4c9324",
     keenProjectId = "50bd96f03843313f01000001",
     keenWriteKey = "e1d96f3aea837a2639b02695441019122f46a84132ccfd0ef5d37e9e657f0047c8e6272ca1f5b1cf063ec1d6443a9f4855033589000da0df49f1b2d114d76ce32e2839097477213e7d6f2919d2aebf918c3a23c1a2b45f33b04034c9d25a80a7fd6fe421491c7965c8cce523f2ca3b26",
     keenReadKey = "59ef051900bfad212434397450a4833ef10fa23d938e6d3f3d83b6486d1c36afcc0e2b783148cb2e00eeeda4ce01befad246df894fa89296667b71aa838f027309187b6d6a53fecd4464e8f18199ee7ee9f1e65157e7cc300ff48663f6351a2f03213a83c327f2a922c3376fad23d0f0",
-    twitterStreamProxy = "http://localhost:8080"
+    twitterStreamProxy = "http://weeve.dzello.com:8080"
 
   // Other variables used throughout the script
   var currentUser, currentUserAuth,
