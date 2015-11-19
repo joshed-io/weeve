@@ -1,5 +1,11 @@
 ![weeve logo](https://raw.github.com/dzello/weeve/master/www/images/weeve.png "Weeve logo")
 
+---
+
+### >> weeve has been retired, thanks to everyone who gave it a try :)
+
+---
+
 A weeve is Twitter timeline sharing in a group. See one in action here:
 
 [http://weeve.dzello.com/](http://weeve.dzello.com/)
