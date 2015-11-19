@@ -2,7 +2,7 @@
 
 ---
 
-### >> weeve has been retired, thanks to everyone who gave it a try :)
+### >> weeve has been retired, but the [Keen](https://keen.io) and [Firebase](https://firebase.com) APIs allow you to build more apps just like it :)
 
 ---
 
