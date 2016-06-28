@@ -10,7 +10,7 @@ A weeve is Twitter timeline sharing in a group. See one in action here:
 
 [http://weeve.dzello.com/](http://weeve.dzello.com/)
 
-Read more about weeve on my blog - [weeve - HTML5 Twitter uber-streaming powered by Firebase, Keen IO, and Singly](http://blog.joshdzielak.com/blog/2012/12/24/weeve-html5-twitter-uber-streaming-powered-by-firebase-keenio-and-singly/).
+Read more about weeve on my blog - [weeve - HTML5 Twitter uber-streaming powered by Firebase, Keen IO, and Singly](http://dzello.com/blog/2012/12/24/weeve-html5-twitter-uber-streaming-powered-by-firebase-keenio-and-singly/).
 
 ### Background
 
@@ -73,7 +73,7 @@ Once you've deployed, share the URL with some friends and start a weeve.
 Note: it's easy to work on this locally as well, under Apache or Nginx. Just make sure the above variables reflect your local environment.
 
 ### Get updates
-Follow me on Twitter at [@dzello](http://twitter.com/dzello) or subscribe to my blog: [http://blog.joshdzielak.com/](http://blog.joshdzielak.com/).
+Follow me on Twitter at [@dzello](http://twitter.com/dzello) or subscribe to my blog: [http://dzello.com/](http://dzello.com/).
 
 ### Future enhancements
 * Use the Singly API's to get the tweets and remove the proxy
