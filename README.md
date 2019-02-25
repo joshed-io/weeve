@@ -10,7 +10,7 @@ A weeve is Twitter timeline sharing in a group. See one in action here:
 
 [http://weeve.dzello.com/](http://weeve.dzello.com/)
 
-Read more about weeve on my blog - [weeve - HTML5 Twitter uber-streaming powered by Firebase, Keen IO, and Singly](https://dzello.com/blog/2012/12/24/weeve-html5-twitter-uber-streaming-powered-by-firebase-keenio-and-singly/).
+Read more about weeve on my blog - [weeve - HTML5 Twitter uber-streaming powered by Firebase, Keen IO, and Singly](https://dzello.com/blog/2012/12/24/weeve-html5-twitter-uber-streaming-powered-by-firebase-keen-io-and-singly/).
 
 ### Background
 
